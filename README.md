@@ -1,4 +1,4 @@
-#Wheredigo (Where did it go?)
+# Wheredigo (Where did it go?)
 Simple spend tracker with primary purpose to load data into Elastic search for Kibana dashboards.
 
 ## Project Layout
