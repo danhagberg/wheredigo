@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "f96f5150-7ab9-11e7-bb80-c77bb57323c9",
+    "_type": "dashboard",
+    "_source": {
+      "title": "Spend Dashboard",
+      "hits": 0,
+      "description": "",
+      "panelsJSON": "[{\"col\":1,\"id\":\"696d5200-7ab9-11e7-bb80-c77bb57323c9\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":4,\"columns\":[\"amount\",\"category\",\"subcategory\",\"note\"],\"id\":\"c67711c0-7ab9-11e7-bb80-c77bb57323c9\",\"panelIndex\":2,\"row\":5,\"size_x\":9,\"size_y\":4,\"sort\":[\"transDate\",\"desc\"],\"type\":\"search\"},{\"col\":5,\"id\":\"39c1bf00-7e33-11e7-b119-b950f76bb0c4\",\"panelIndex\":3,\"row\":1,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"},{\"col\":1,\"id\":\"16fce0c0-7e34-11e7-b119-b950f76bb0c4\",\"panelIndex\":4,\"row\":5,\"size_x\":3,\"size_y\":4,\"type\":\"visualization\"},{\"col\":9,\"id\":\"18536ff0-822d-11e7-b90e-2d030aa0f1bc\",\"panelIndex\":5,\"row\":1,\"size_x\":4,\"size_y\":4,\"type\":\"visualization\"}]",
+      "optionsJSON": "{\"darkTheme\":true}",
+      "uiStateJSON": "{\"P-4\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}},\"P-5\":{\"vis\":{\"defaultColors\":{\"0 - 100\":\"rgb(0,104,55)\"}}}}",
+      "version": 1,
+      "timeRestore": true,
+      "timeTo": "Mon Apr 30 2018 23:59:59 GMT-0700",
+      "timeFrom": "Mon May 01 2017 00:00:00 GMT-0700",
+      "refreshInterval": {
+        "display": "Off",
+        "pause": false,
+        "value": 0
+      },
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}],\"highlightAll\":true,\"version\":true}"
+      }
+    }
+  }
+]

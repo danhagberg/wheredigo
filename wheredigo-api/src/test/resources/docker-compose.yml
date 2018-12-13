@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+  elasticsearch:
+    build: elasticsearch/
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+        #    volumes:
+        #- /tmp/wheredigo_data:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk
+
+networks:
+
+  elk:
+    driver: bridge
+

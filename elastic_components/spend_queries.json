@@ -1,0 +1,25 @@
+[
+  {
+    "_id": "c67711c0-7ab9-11e7-bb80-c77bb57323c9",
+    "_type": "search",
+    "_source": {
+      "title": "SpendQuery",
+      "description": "",
+      "hits": 0,
+      "columns": [
+        "amount",
+        "category",
+        "subcategory",
+        "note"
+      ],
+      "sort": [
+        "transDate",
+        "desc"
+      ],
+      "version": 1,
+      "kibanaSavedObjectMeta": {
+        "searchSourceJSON": "{\"index\":\"spend-index\",\"highlightAll\":true,\"version\":true,\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+      }
+    }
+  }
+]

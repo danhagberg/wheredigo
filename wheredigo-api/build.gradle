@@ -1,0 +1,44 @@
+buildscript {
+    ext {
+        swaggerVersion='2.4.0'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile("org.springframework.data:spring-data-jpa") // for jsr310 date types
+
+    compile "io.springfox:springfox-swagger2:2.9.2"
+    compile "io.springfox:springfox-swagger-ui:2.9.2"
+
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.1')
+
+    compileOnly('org.projectlombok:lombok')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+
+jar {
+    enabled = true
+}
+
+/**
+ * The Api module does not contain a runnable service.  Prevent springboot from trying to package up this application.
+bootRepackage {
+    enabled = false
+}
+ */
+bootJar.enabled = false // 2.0

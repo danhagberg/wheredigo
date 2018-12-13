@@ -1,0 +1,4 @@
+include 'wheredigo-api'
+include 'wheredigo-vaadin'
+include 'wheredigo-integration-test'
+
