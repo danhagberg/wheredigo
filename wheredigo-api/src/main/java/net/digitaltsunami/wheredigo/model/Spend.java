@@ -21,7 +21,7 @@ import java.time.ZonedDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "spend-index", type = "spend-type", shards = 1, replicas = 0, refreshInterval = "-1")
+@Document(indexName = "spend-index-v2", type = "spend-type-v2", shards = 1, replicas = 0, refreshInterval = "-1")
 /**
  * Data model for a spend transaction.  In addition to the model, the class is annotated to include Elasticsearch
  * indexing instructions.
@@ -47,5 +47,8 @@ public class Spend {
 
     @Field(type = FieldType.Keyword)
     public String vendor;
+
+    @Field(type = FieldType.Keyword)
+    public String[] tags;
 
 }

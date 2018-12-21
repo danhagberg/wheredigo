@@ -44,6 +44,7 @@ public class MyUI extends UI implements Action.Handler {
     private String subCatFilter;
     private String vendorFilter;
     private String noteFilter;
+    private String tagFilter;
 
     private Action actionNew;
     private Action actionDup;
@@ -113,10 +114,15 @@ public class MyUI extends UI implements Action.Handler {
         TextField subcategoryField = new TextField();
         TextField vendorField = new TextField();
         TextField noteField = new TextField();
+        TextField tagsField = new TextField();
         Binder.Binding<Spend, BigDecimal> amountBinder = binder
                 .forField(amountField)
                 .withConverter(new StringToBigDecimalConverter("Unable to convert to BigDecimal"))
                 .bind(Spend::getAmount, Spend::setAmount);
+        Binder.Binding<Spend, String[]> tagsBinder = binder
+                .forField(tagsField)
+                .withConverter(new TagConverter())
+                .bind(Spend::getTags, Spend::setTags);
         grid.setItems(Collections.emptyList());
         grid.addColumn(Spend::getTransDate, df::format)
                 .setId("Date")
@@ -143,6 +149,12 @@ public class MyUI extends UI implements Action.Handler {
                 .setEditorComponent(noteField, Spend::setNote)
                 .setId("Notes")
                 .setCaption("Notes");
+        grid.addColumn(Spend::getTags)
+        //        .setEditorComponent(tagsField, Spend::setTags)
+                .setEditorBinding(tagsBinder)
+                .setRenderer(new TagRenderer())
+                .setId("Tags")
+                .setCaption("Tags");
     }
 
     private Button getAddTransButton() {
@@ -172,6 +184,7 @@ public class MyUI extends UI implements Action.Handler {
             newSpend.subcategory = selectedSpend.getSubcategory();
             newSpend.note = selectedSpend.getNote();
             newSpend.vendor = selectedSpend.getVendor();
+            newSpend.tags = selectedSpend.getTags();
             form.setSpend(newSpend);
             form.setVisible(true);
         }
@@ -196,16 +209,18 @@ public class MyUI extends UI implements Action.Handler {
         catFilter = isEmpty(catFilter) ? null : catFilter;
         subCatFilter = isEmpty(subCatFilter) ? null : subCatFilter;
         vendorFilter = isEmpty(vendorFilter) ? null : vendorFilter;
+        tagFilter = isEmpty(tagFilter) ? null : tagFilter;
         noteFilter = isEmpty(noteFilter) ? null : noteFilter;
         boolean filterOff = isEmpty(catFilter)
                 && isEmpty(subCatFilter)
                 && isEmpty(vendorFilter)
+                && isEmpty(tagFilter)
                 && isEmpty(noteFilter);
 
         if (filterOff) {
             transactions = service.findAll();
         } else {
-            transactions = service.findAllByFilter(catFilter, subCatFilter, vendorFilter, noteFilter);
+            transactions = service.findAllByFilter(catFilter, subCatFilter, vendorFilter, noteFilter, tagFilter);
         }
         List<Spend> spendList = new ArrayList<>();
         transactions.forEach(spendList::add);
@@ -246,6 +261,14 @@ public class MyUI extends UI implements Action.Handler {
             });
             filteringHeader.getCell("Vendor")
                     .setComponent(vendorFilteringField);
+
+            TextField tagFilteringField = getColumnFilterField();
+            tagFilteringField.addValueChangeListener(event -> {
+                tagFilter = tagFilteringField.getValue();
+                updateTransList();
+            });
+            filteringHeader.getCell("Tags")
+                    .setComponent(tagFilteringField);
 
             TextField noteFilteringField = getColumnFilterField();
             noteFilteringField.addValueChangeListener(event -> {
@@ -289,5 +312,4 @@ public class MyUI extends UI implements Action.Handler {
         filter.setValueChangeMode(ValueChangeMode.LAZY);
         return filter;
     }
-
 }

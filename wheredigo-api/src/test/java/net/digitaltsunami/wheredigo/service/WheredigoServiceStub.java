@@ -21,9 +21,9 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class WheredigoServiceStub implements WheredigoService {
     private List<Spend> spends = new ArrayList() {{
-        add(new Spend("id_1", ZonedDateTime.now(), new BigDecimal(3.14), "cat_1", "sub_cat_1", "Some notes 1", "vendor1"));
-        add(new Spend("id_2", ZonedDateTime.now(), new BigDecimal(4.14), "cat_2", "sub_cat_1", "Some notes 2", "vendor1"));
-        add(new Spend("id_3", ZonedDateTime.now(), new BigDecimal(5.14), "cat_1", "sub_cat_2", "Some notes 3", "vendor2"));
+        add(new Spend("id_1", ZonedDateTime.now(), new BigDecimal(3.14), "cat_1", "sub_cat_1", "Some notes 1", "vendor1", new String[]{"tag1"}));
+        add(new Spend("id_2", ZonedDateTime.now(), new BigDecimal(4.14), "cat_2", "sub_cat_1", "Some notes 2", "vendor1", new String[]{"tag1", "tag2"}));
+        add(new Spend("id_3", ZonedDateTime.now(), new BigDecimal(5.14), "cat_1", "sub_cat_2", "Some notes 3", "vendor2", new String[]{}));
     }};
 
     @Override
@@ -68,7 +68,7 @@ public class WheredigoServiceStub implements WheredigoService {
     }
 
     @Override
-    public Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String noteFilter) {
+    public Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String noteFilter, String tags) {
         return spends.stream()
                 .filter(s -> Objects.equals(category, s.getCategory()) && Objects.equals( subcategory, s.getSubcategory()))
                 .collect(Collectors.toList());

@@ -61,9 +61,9 @@ public class WheredigoServiceEs implements WheredigoService {
     }
 
     @Override
-    public Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String note) {
-        return spendRepository.findAllByCategoryAndSubcategoryAndVendorAndNote(
-                PageRequest.of(0, 1000, Sort.Direction.DESC, "transDate"), category, subcategory, vendor, note);
+    public Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String note, String tag) {
+        return spendRepository.findAllByCategoryAndSubcategoryAndVendorAndNoteAndTags(
+                PageRequest.of(0, 1000, Sort.Direction.DESC, "transDate"), category, subcategory, vendor, note, tag);
     }
 
     @Override

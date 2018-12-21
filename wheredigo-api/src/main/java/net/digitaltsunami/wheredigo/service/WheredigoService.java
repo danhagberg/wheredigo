@@ -60,13 +60,15 @@ public interface WheredigoService {
     Iterable<Spend> findAllByCategory(String category);
 
     /**
+     * @TODO Comment this
      * @param category
      * @param subcategory
      * @param vendor
      * @param noteFilter
+     * @param tag
      * @return
      */
-    Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String noteFilter);
+    Iterable<Spend> findAllByFilter(String category, String subcategory, String vendor, String noteFilter, String tag);
 
     /**
      * @param id

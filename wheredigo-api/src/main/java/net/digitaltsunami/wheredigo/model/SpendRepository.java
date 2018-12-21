@@ -62,10 +62,11 @@ public interface SpendRepository extends ElasticsearchRepository<Spend, String> 
      * @param subcategory Case sensitive subcategory.  Must match entire keyword. May contain wildcard
      * @param vendor Case sensitive vendor.  Must match entire keyword. May contain wildcard
      * @param note Case insensitive query for note. Query can match individual tokens. May contain wildcard.
+     * @param tags Case insensitive query for tag. Query can match individual tokens. May not contain wildcard.
      * @return Iterable of 0 to n spend entries matching the provided fields.
      */
-    Iterable<Spend> findAllByCategoryAndSubcategoryAndVendorAndNote(String category, String subcategory,
-                                                                    String vendor, String note);
+    Iterable<Spend> findAllByCategoryAndSubcategoryAndVendorAndNoteAndTags(String category, String subcategory,
+                                                                          String vendor, String note, String tags);
 
     /**
      * Return a page of spend entries matching all provided fields. Null values will not be used in the query.
@@ -75,10 +76,11 @@ public interface SpendRepository extends ElasticsearchRepository<Spend, String> 
      * @param subcategory Case sensitive subcategory.  Must match entire keyword. May contain wildcard
      * @param vendor Case sensitive vendor.  Must match entire keyword. May contain wildcard
      * @param note Case insensitive query for note. Query can match individual tokens. May contain wildcard.
+     * @param tags Case insensitive query for tag. Query can match individual tokens. May not contain wildcard.
      * @return a page of 0 to page size spend entries matching the provided fields.
      */
-    Page<Spend> findAllByCategoryAndSubcategoryAndVendorAndNote(Pageable pageable, String category, String subcategory,
-                                                                String vendor, String note);
+    Page<Spend> findAllByCategoryAndSubcategoryAndVendorAndNoteAndTags(Pageable pageable, String category, String subcategory,
+                                                                String vendor, String note, String tags);
     /**
      * Return all spend entries matching between the provided dates.  Dates are inclusive.  Transactions occurring
      * on the either the start date or stop date will be included.
@@ -87,4 +89,19 @@ public interface SpendRepository extends ElasticsearchRepository<Spend, String> 
      * @return Iterable of 0 to n spend entries occurring within the provided date range.
      */
     Iterable<Spend> findAllByTransDateBetween(ZonedDateTime startDate, ZonedDateTime stopDate);
+
+    /**
+     * Return all spend entries matching a given tag.
+     * @param tags Case sensitive tag.  Must match entire tag. May not contain wildcard.
+     * @return Iterable of 0 to n spend entries matching the tag.
+     */
+    Iterable<Spend> findAllByTags(String tags);
+
+    /**
+     * Return a page of spend entries matching a given tag.
+     * @param pageable Paging information
+     * @param tags Case sensitive tag.  Must match entire tag. May not contain wildcard
+     * @return a page of 0 to page size spend entries matching the tag.
+     */
+    Page<Spend> findAllByTags(Pageable pageable, String tags);
 }

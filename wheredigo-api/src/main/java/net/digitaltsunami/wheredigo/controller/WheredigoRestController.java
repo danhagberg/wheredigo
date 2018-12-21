@@ -43,16 +43,18 @@ public class WheredigoRestController {
             @RequestParam(value = "category", required = false) String category,
             @RequestParam(value = "subcategory", required = false) String subcategory,
             @RequestParam(value = "vendor", required = false) String vendor,
+            @RequestParam(value = "tag", required = false) String tag,
             @RequestParam(value = "note", required = false) String note) {
         boolean emptyQuery = isEmpty(category)
                 && isEmpty(subcategory)
                 && isEmpty(vendor)
+                && isEmpty(tag)
                 && isEmpty(note);
 
         if (emptyQuery) {
             return spendService.findAll();
         } else {
-            return spendService.findAllByFilter(category, subcategory, vendor, note);
+            return spendService.findAllByFilter(category, subcategory, vendor, note, tag);
         }
     }
 
