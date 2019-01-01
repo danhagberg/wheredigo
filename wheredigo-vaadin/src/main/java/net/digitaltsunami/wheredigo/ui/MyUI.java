@@ -106,6 +106,9 @@ public class MyUI extends UI implements Action.Handler {
         addActionHandler(this);
     }
 
+    /**
+     * Add all columns to grid with applicable presentation and editors.
+     */
     private void addSpendColumns() {
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         Binder<Spend> binder = grid.getEditor().getBinder();
@@ -150,7 +153,6 @@ public class MyUI extends UI implements Action.Handler {
                 .setId("Notes")
                 .setCaption("Notes");
         grid.addColumn(Spend::getTags)
-        //        .setEditorComponent(tagsField, Spend::setTags)
                 .setEditorBinding(tagsBinder)
                 .setRenderer(new TagRenderer())
                 .setId("Tags")
@@ -173,6 +175,10 @@ public class MyUI extends UI implements Action.Handler {
         form.setVisible(true);
     }
 
+    /**
+     * Extracts data from the currently selected action and populates the entry form using those values
+     * and today's date.
+     */
     private void duplicateCurrentAction() {
         Spend selectedSpend = grid.asSingleSelect().getValue();
         if (selectedSpend != null) {
@@ -203,6 +209,10 @@ public class MyUI extends UI implements Action.Handler {
         return deleteTransactionBtn;
     }
 
+    /**
+     * Update the current transaction list after applying any currently entered filters.
+     * If not filters are applied, then all rows are returned.
+     */
     protected void updateTransList() {
 
         Iterable<Spend> transactions;
@@ -232,6 +242,10 @@ public class MyUI extends UI implements Action.Handler {
         form = new SpendForm(this, service);
     }
 
+    /**
+     * Add the filter row to the grid and attach handlers for each filter to update the results
+     * when the filter field is updated.
+     */
     private void setColumnFiltering() {
         if (filteringHeader == null) {
             filteringHeader = grid.appendHeaderRow();
@@ -280,6 +294,9 @@ public class MyUI extends UI implements Action.Handler {
         }
     }
 
+    /**
+     * Add shortcuts to UI.
+     */
     private void initActions() {
         actionNew = new ShortcutAction("Ctrl+N",
                 ShortcutAction.KeyCode.N,
@@ -304,6 +321,10 @@ public class MyUI extends UI implements Action.Handler {
 
     }
 
+    /**
+     * Factory method to create a filter field by applying common properties.
+     * @return Configured filter field.
+     */
     private TextField getColumnFilterField() {
         TextField filter = new TextField();
         filter.setWidth("100%");
