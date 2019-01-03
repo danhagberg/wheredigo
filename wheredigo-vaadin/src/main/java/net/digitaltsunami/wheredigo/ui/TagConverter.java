@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class TagConverter implements Converter<String, String[]> {
     @Override
     public Result<String[]> convertToModel(String value, ValueContext context) {
-        if (value == null) {
+        if (value == null || value.isEmpty()) {
             return Result.ok(null);
         }
         else {
